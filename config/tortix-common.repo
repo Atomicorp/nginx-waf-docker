@@ -1,0 +1,8 @@
+[tortix-common]
+name=Atomicorp - Centos 7 - Atomic Secured Linux 
+mirrorlist=http://updates.atomicorp.com/channels/mirrorlist/tortix-common/centos-$releasever-$basearch
+priority=1
+enabled=1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY.atomicorp.txt
+gpgcheck=1
+

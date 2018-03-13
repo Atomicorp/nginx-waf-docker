@@ -6,8 +6,12 @@ RUN yum -y install wget  && yum clean all
 
 RUN cd /root; NON_INT=1 wget -q -O - https://updates.atomicorp.com/installers/atomic |sh
 
+COPY config/tortix-common.repo /etc/yum.repos.d/tortix-common.repo
 
-RUN yum -y install nginx nginx-module-modsecurity http-tools 
+RUN yum -y install nginx nginx-module-modsecurity http-tools roadsend-php-libs aum
+
+# Special condition for aum
+RUN ln -sf /var/asl/bin/aum.dynamic /var/asl/bin/aum
 
 # Configure Nginx and apply fix for very long server names
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
@@ -19,6 +23,7 @@ RUN mkdir -p /var/asl/data/audit
 RUN mkdir -p /etc/asl && touch /etc/asl/whitelist
 COPY config/00_mod_security.conf /etc/nginx/conf.d/
 COPY config/modsecurity.d /etc/httpd/modsecurity.d
+
 
 
 # Install Forego
